@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-lg-6 col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <ng-container >Update Career</ng-container>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" (submit)="updateContactRequest($event)">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Enter Title"
+              formControlName="title">
+            <small class="error"
+              *ngIf="form.controls['title'].touched && form.controls['title'].errors?.required">Title is
+              required</small>
+          </div>
+
+          <div class="form-group">
+            <label for="experience">Experience</label>
+            <input type="text" class="form-control" id="experience" placeholder="Enter Title"
+              formControlName="experience">
+            <small class="error"
+              *ngIf="form.controls['experience'].touched && form.controls['experience'].errors?.required">Experience is
+              required</small>
+          </div>
+
+          <div class="form-group">
+            <label for="info">Short Info</label>
+            <input type="text" class="form-control" id="info" placeholder="Enter Title"
+              formControlName="info">
+            <small class="error"
+              *ngIf="form.controls['info'].touched && form.controls['info'].errors?.required">Short Info is
+              required</small>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <my-app-editor [customForm]="form" customFormControl="description"></my-app-editor>
+            <small class="error"
+              *ngIf="form.controls['description'].touched && form.controls['description'].errors?.required">Reason is
+              required</small>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

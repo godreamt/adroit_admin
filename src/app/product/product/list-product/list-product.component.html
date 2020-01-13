@@ -1,0 +1,106 @@
+<div class="row insieme-forms">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+          <div class="w-100 d-flex justify-content-between">
+            <span>Products</span>
+            <button class="btn btn-primary ml-auto" [routerLink]="['/product/update']">Add</button>
+          </div>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3" [formGroup]="form">
+          <div class="col-md-2 mb-1">
+            <input type="text" placeholder="Search" class="form-control" formControlName="searchText">
+          </div>
+          <div class="col-md-2 mb-1">
+            <select class="form-control" formControlName="category" (change)="getSubCategory($event)">
+              <option value="">All Category</option>
+              <option *ngFor="let item of categoryList;" [value]="item.id">{{ item.title }}</option>
+            </select>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select class="form-control" formControlName="subCategory">
+              <option value="">All Sub Category</option>
+              <option *ngFor="let item of subCategoryList;" [value]="item.id">{{ item.title }}</option>
+            </select>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select class="form-control" formControlName="isListed">
+              <option value="">All Products</option>
+              <option value="listed">Listed In site</option>
+              <option value="unlisted">Hidden from site</option>
+            </select>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select class="form-control" formControlName="isBestSeller">
+              <option value="">All Products</option>
+              <option value="bestseller">Best Seller</option>
+            </select>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-primary ml-3 mt-m1" (click)="getProducts()">Filter</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Short Description</th>
+                    <th>Price</th>
+                    <th width="120px">Sales Points</th>
+                    <th width="110px">Best seller</th>
+                    <th width="110px">Site Listing</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of productList;">
+                    <td>
+                      <img [src]="imageUrl + item.featuredImage" alt="" class="img-thumbnail">
+                    </td>
+                    <td>{{ item.title}}</td>
+                    <td>
+                        <div class="table-description" [innerHTML]="item.shortDescription"></div>
+                    </td>
+                    <td>{{ item.regularPrice }}</td>
+                    <td>{{ item.salesPoints }}</td>
+                    <td>
+                      <span class="text-success" *ngIf="item.bestSeller == 1">Yes</span>
+                      <span class="text-info" *ngIf="item.bestSeller == 0">No</span>
+                    </td>
+                    <td>
+                      <span class="text-success" *ngIf="item.removeFromList == 1">No</span>
+                      <span class="text-info" *ngIf="item.removeFromList == 0">Yes</span>
+                    </td>
+                    <td>
+                      <div class="action">
+                          <button class="btn btn-sm btn-primary" type="button" [routerLink]="['/product/update/'+item.id]">
+                            <i class="fa fa-edit"></i>
+                          </button>
+                          <button class="btn btn-sm btn-danger ml-2" type="button" (click)="deleteProduct(item)">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="8" *ngIf="productList.length <= 0">No Products to display</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <ngb-pagination class="float-right" *ngIf="(totalRecord / perPage) > 1" [collectionSize]="totalRecord"
+                [(page)]="page" [maxSize]="6" [pageSize]="perPage" [rotate]="true" [ellipses]="true"
+                [boundaryLinks]="false" (pageChange)="getProducts($event)"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

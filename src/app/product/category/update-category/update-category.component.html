@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-6 col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <ng-container >Update Category</ng-container>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" (submit)="updateCategory($event)">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Enter Title"
+              formControlName="title">
+            <small class="error"
+              *ngIf="form.controls['title'].touched && form.controls['title'].errors?.required">Title is
+              required</small>
+          </div>
+
+          <div class="form-group">
+            <label for="shortDescription">Short Description</label>
+            <my-app-editor [customForm]="form" customFormControl="shortDescription"></my-app-editor>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <my-app-editor [customForm]="form" customFormControl="description"></my-app-editor>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Featured Image</label>
+            <my-image-box [customForm]="form" customFormControl="featuredImage" [currentImage]="currentImage"></my-image-box>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

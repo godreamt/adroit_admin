@@ -1,0 +1,121 @@
+<div class="row insieme-forms">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="w-100 d-flex justify-content-between">
+            <span>{{orderData?.autoId}}
+                (
+                <span class="text-success" *ngIf="orderData?.orderStatus == 'approved'">Approved</span>
+                <span class="text-info" *ngIf="orderData?.orderStatus == 'cancelled'">Cancelled</span>
+                <span class="text-danger" *ngIf="orderData?.orderStatus == 'new'">New</span>
+                <span class="text-warning" *ngIf="orderData?.orderStatus == 'delivered'">Delivered</span>
+                )
+            </span>
+            <span *ngIf="orderData && orderData?.orderStatus == 'new'">
+              <button class="btn btn-info mr-2"  (click)="approveOrder()">Confirm Order</button>
+              <button class="btn btn-danger" (click)="rejectOrder()">Cancel Order</button>
+            </span>
+            <button class="btn btn-success" *ngIf="orderData && orderData?.orderStatus == 'approved'"  (click)="deliverOrder()">Set Delivered</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+                <h4>{{ vendorData?.firstName }} {{ vendorData?.lastName }}</h4>
+                <p class="text-muted mb-0">{{ vendorData?.area }}, {{ vendorData?.region }} - {{ vendorData?.state }},{{ vendorData?.country }}</p>
+                <p class="text-muted">{{ vendorData?.address }}</p>
+                <p>
+                  Mob : <strong>{{ vendorData?.mobileNumber }}</strong><br>
+                  Email : <strong>{{ vendorData?.email }}</strong><br>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h4>{{ soldUserData?.firstName }} {{ soldUserData?.lastName }}</h4>
+                <p class="text-muted mb-0" *ngIf="soldUserData?.roles != 'admin'">
+                  <span *ngIf="soldUserData?.roles == 'country_head'">
+                      {{ soldUserData?.country }}
+                  </span>
+                  <span *ngIf="soldUserData?.roles == 'state_head'">
+                      {{ soldUserData?.state }},{{ soldUserData?.country }}
+                  </span>
+                  <span *ngIf="soldUserData?.roles == 'regional_head'">
+                      {{ soldUserData?.region }} - {{ soldUserData?.state }},{{ soldUserData?.country }}
+                  </span>
+                  <span *ngIf="soldUserData?.roles == 'sales_executive'">
+                      {{ soldUserData?.area }}, {{ soldUserData?.region }} - {{ soldUserData?.state }},{{ soldUserData?.country }}
+                  </span>
+                </p>
+                <p>
+                    <span class="text-success" *ngIf="soldUserData?.roles == 'admin'">Admin</span>
+                    <span class="text-info" *ngIf="soldUserData?.roles == 'country_head'">Country Head</span>
+                    <span class="text-info" *ngIf="soldUserData?.roles == 'state_head'">State Head</span>
+                    <span class="text-info" *ngIf="soldUserData?.roles == 'regional_head'">Regional Head</span>
+                    <span class="text-info" *ngIf="soldUserData?.roles == 'sales_executive'">Sales Executive</span>
+                    <span class="text-warning" *ngIf="soldUserData?.roles == 'vendors'">Vendor</span>
+                </p>
+                <p>
+                  Mob : <strong>{{ soldUserData?.mobileNumber }}</strong><br>
+                  Email : <strong>{{ soldUserData?.email }}</strong><br>
+                </p>
+            </div>
+          </div>
+          <hr>
+  
+          <h5 class="d-flex justify-content-between align-items-center">
+            Products
+          </h5>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                  <th>Product</th>
+                <th>Category</th>
+                <th>Sub Category</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of orderData?.orderItems;">
+                  <td>
+                    {{ item.productDetails.productName }}
+                  </td>
+                  <td>
+                      {{ item.productDetails.category }}
+                  </td>
+                  <td>
+                      {{ item.productDetails.subCategory }}
+                  </td>
+                  <td>
+                      {{ item.quantity }}
+                  </td>
+                  <td>
+                    {{ item.productPrice }}
+                  </td>
+                  <td>
+                      {{ item.totalPrice }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-6">
+              <h6>Total Order Amount:  {{ orderData?.totalOrderAmount }} </h6>
+              <h6>Total Paid Amount:  {{ orderData?.paidAmount }} </h6>
+              <h6>Balance Amount:  {{ orderData?.balanceAmount }} </h6>
+              <button class="btn btn-primary" [routerLink]="['/order-manager/view/make-collection/'+orderData?.id]">Make Collection</button>
+            </div>
+            <div class="col-md-6 text-right">
+              <p class="text-muted">
+                <strong *ngIf="orderData && orderData?.approvedDate">Approved Time : </strong> {{ orderData?.approvedDate | datex:'MMM DD, YYYY'}} <br>
+                <strong *ngIf="orderData && orderData?.deliveredDate">Delvered Time : </strong> {{ orderData?.deliveredDate | datex:'MMM DD, YYYY'}} <br>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

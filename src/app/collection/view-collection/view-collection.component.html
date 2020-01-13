@@ -1,0 +1,153 @@
+<div class="row insieme-forms">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="w-100 d-flex justify-content-between">
+            <span>{{collectionData?.autoId}}
+                (
+                  <span class="text-success" *ngIf="collectionData.paymentStatus == 'processed'">Processed</span>
+                  <span class="text-danger" *ngIf="collectionData.paymentStatus == 'cancelled'">Cancelled</span>
+                  <span class="text-warning" *ngIf="collectionData.paymentStatus == 'pending'">Pending</span>
+                )
+            </span>
+            <span *ngIf="collectionData && collectionData?.paymentStatus == 'pending'">
+              <button class="btn btn-info mr-2"  (click)="processCollection()">Process Collection</button>
+              <button class="btn btn-danger" (click)="cancelCollection()">Cancel Collection</button>
+            </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+                <h4>{{ vendorData?.firstName }} {{ vendorData?.lastName }}</h4>
+                <p class="text-muted mb-0">{{ vendorData?.area }}, {{ vendorData?.region }} - {{ vendorData?.state }},{{ vendorData?.country }}</p>
+                <p class="text-muted">{{ vendorData?.address }}</p>
+                <p>
+                  Mob : <strong>{{ vendorData?.mobileNumber }}</strong><br>
+                  Email : <strong>{{ vendorData?.email }}</strong><br>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h4>{{ collectedUserData?.firstName }} {{ collectedUserData?.lastName }}</h4>
+                <p class="text-muted mb-0" *ngIf="collectedUserData?.roles != 'admin'">
+                  <span *ngIf="collectedUserData?.roles == 'country_head'">
+                      {{ collectedUserData?.country }}
+                  </span>
+                  <span *ngIf="collectedUserData?.roles == 'state_head'">
+                      {{ collectedUserData?.state }},{{ collectedUserData?.country }}
+                  </span>
+                  <span *ngIf="collectedUserData?.roles == 'regional_head'">
+                      {{ collectedUserData?.region }} - {{ collectedUserData?.state }},{{ collectedUserData?.country }}
+                  </span>
+                  <span *ngIf="collectedUserData?.roles == 'sales_executive'">
+                      {{ collectedUserData?.area }}, {{ collectedUserData?.region }} - {{ collectedUserData?.state }},{{ collectedUserData?.country }}
+                  </span>
+                </p>
+                <p>
+                    <span class="text-success" *ngIf="collectedUserData?.roles == 'admin'">Admin</span>
+                    <span class="text-info" *ngIf="collectedUserData?.roles == 'country_head'">Country Head</span>
+                    <span class="text-info" *ngIf="collectedUserData?.roles == 'state_head'">State Head</span>
+                    <span class="text-info" *ngIf="collectedUserData?.roles == 'regional_head'">Regional Head</span>
+                    <span class="text-info" *ngIf="collectedUserData?.roles == 'sales_executive'">Sales Executive</span>
+                    <span class="text-warning" *ngIf="collectedUserData?.roles == 'vendors'">Vendor</span>
+                </p>
+                <p>
+                  Mob : <strong>{{ collectedUserData?.mobileNumber }}</strong><br>
+                  Email : <strong>{{ collectedUserData?.email }}</strong><br>
+                </p>
+            </div>
+          </div>
+          <hr>
+  
+          <h5 class="d-flex justify-content-between align-items-center">
+            Collection Info
+          </h5>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <th>Collection Amount</th>
+                <th>Collection Date</th>
+                <th>Payment Method</th>
+                <th>Related Indo</th>
+                <th>Processed On</th>
+                <th>Comments</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    {{ collectionData?.collectionAmount }}
+                  </td>
+                  <td>
+                      {{ collectionData?.created_at | datex:'MMM DD, YYYY' }}
+                  </td>
+                  <td>
+                      {{ collectionData?.paymentMethod|uppercase }}
+                  </td>
+                  <td>
+                      {{ collectionData?.relatedInfo }}
+                  </td>
+                  <td>
+                    <span *ngIf="!collectionData?.payProcessedDate">---</span>
+                    <span *ngIf="collectionData?.payProcessedDate">
+                        {{ collectionData?.payProcessedDate | datex:'MMM DD, YYYY' }}
+                    </span>
+                  </td>
+                  <td>
+                    {{ collectionData?.comments }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr>
+  
+          <h5 class="d-flex justify-content-between align-items-center">
+            Order Info
+          </h5>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <th>Order</th>
+                <th>Order Date</th>
+                <th>Order Amount</th>
+                <th>Order Status</th>
+                <th>Paid Amount</th>
+                <th>Balance Amount</th>
+                <th>Order Points</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <a href="javascript:;" [routerLink]="['/order-manager/view/'+orderDetails?.id]">#{{ orderDetails?.autoId }}</a>
+                  </td>
+                  <td>
+                    {{ orderDetails?.created_at | datex:'MMM DD, YYYY' }}
+                  </td>
+                  <td>
+                      {{ orderDetails?.totalOrderAmount }}
+                  </td>
+                  <td>
+                      <span class="text-success" *ngIf="orderDetails?.orderStatus == 'approved'">Approved</span>
+                      <span class="text-info" *ngIf="orderDetails?.orderStatus == 'cancelled'">Cancelled</span>
+                      <span class="text-danger" *ngIf="orderDetails?.orderStatus == 'new'">New</span>
+                      <span class="text-warning" *ngIf="orderDetails?.orderStatus == 'delivered'">Delivered</span>
+                  </td>
+                  <td>
+                      {{ orderDetails?.paidAmount  }}
+                  </td>
+                  <td>
+                      {{ orderDetails?.balanceAmount }}
+                  </td>
+                  <td>
+                      {{ orderDetails?.totalPoints }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

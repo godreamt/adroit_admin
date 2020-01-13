@@ -1,0 +1,3 @@
+<label [for]="customFormControl" class="bg-image upload-image-box" [ngStyle]="{'background': 'url('+this.imageSrc+')'  }">
+  <input type="file" [id]="customFormControl" class="d-none" (change)="uploadimage($event)" accept="image/x-png,image/gif,image/jpeg">
+</label>

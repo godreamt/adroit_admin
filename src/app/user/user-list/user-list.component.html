@@ -1,0 +1,122 @@
+<div class="row insieme-forms">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="w-100 d-flex justify-content-between">
+            <span>Users</span>
+            <button class="btn btn-primary ml-auto" [routerLink]="['/user-manager/update']">Add User</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <ng-container [formGroup]="form">
+              <div class="row mb-3">
+                <div class="col-md-2 mb-1">
+                  <input type="text" placeholder="Search" class="form-control" formControlName="searchText">
+                </div>
+                <div class="col-md-2 mb-1">
+                  <select class="form-control" formControlName="roles">
+                    <option value="">All Users</option>
+                    <option value="admin">Admin</option>
+                    <option value="country_head">Country Head</option>
+                    <option value="state_head">State Head</option>
+                    <option value="regional_head">Regional Head</option>
+                    <option value="sales_executive">Sales Executive</option>
+                    <option value="vendors">Vendors</option>
+                  </select>
+                </div>
+                <div class="col-md-1">
+                  <button class="btn btn-primary ml-3 mt-m1" (click)="getUserList()">Filter</button>
+                </div>
+              </div>
+              <div class="row" *ngIf="form.get('roles').value != '' && form.get('roles').value != 'admin'">
+                <div class="col-md-3 mb-3">
+                  <select formControlName="country_id" id="country_id" class="form-control" (change)="getStates()">
+                    <option value="" disabled>Select Country</option>
+                    <option *ngFor="let item of countryList" [value]="item.id">{{ item.country }}</option>
+                  </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <select formControlName="state_id" id="state_id" class="form-control" (change)="getRegions()">
+                    <option value="" disabled>Select State</option>
+                    <option *ngFor="let item of stateList" [value]="item.id">{{ item.state }}</option>
+                  </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <select formControlName="region_id" id="region_id" class="form-control" (change)="getArea()">
+                    <option value="" disabled>Select Region</option>
+                    <option *ngFor="let item of regionList" [value]="item.id">{{ item.region }}</option>
+                  </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <select formControlName="area_id" id="area_id" class="form-control">
+                    <option value="" disabled>Select Area</option>
+                    <option *ngFor="let item of areaList" [value]="item.id">{{ item.area }}</option>
+                  </select>
+                </div>
+              </div>
+          </ng-container>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th >User Name</th>
+                      <th>Type Of User</th>
+                      <th>Email</th>
+                      <th>Mobile Number</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of userList?.data;">
+                      <td>{{ item.firstName}} {{ item.lastName }}</td>
+                      <td>
+                        <span class="text-success" *ngIf="item.roles == 'admin'">Admin</span>
+                        <span class="text-info" *ngIf="item.roles == 'country_head'">Country Head</span>
+                        <span class="text-info" *ngIf="item.roles == 'state_head'">State Head</span>
+                        <span class="text-info" *ngIf="item.roles == 'regional_head'">Regional Head</span>
+                        <span class="text-info" *ngIf="item.roles == 'sales_executive'">Sales Executive</span>
+                        <span class="text-warning" *ngIf="item.roles == 'vendors'">Vendor</span>
+                      </td>
+                      <td>
+                        {{item.email}}
+                      </td>
+                      <td>
+                        {{ item.mobileNumber }}
+                      </td>
+                      <td>
+                        <div class="action">
+                          <button class="btn btn-sm btn-warning" *ngIf="item.roles != 'admin' && item.roles != 'vendors'" type="button" [routerLink]="['/user-manager/monthly-target/'+item.id]">
+                            <i class="fa fa-cog"></i>
+                          </button>
+                          <button class="btn btn-sm btn-success" *ngIf="item.roles == 'vendors'" type="button" [routerLink]="['/user-manager/new-purchase/'+item.id]">
+                            <i class="fa fa-shopping-cart"></i>
+                          </button>
+                            <button class="btn btn-sm btn-primary ml-2" type="button" [routerLink]="['/user-manager/update/'+item.id]">
+                              <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger ml-2" type="button" (click)="deleteUser(item)">
+                              <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="6" *ngIf="userList?.length <= 0">No users to display</td>
+                    </tr>
+                  </tbody>
+                </table>
+  
+                <ngb-pagination class="float-right" *ngIf="userList?.total > userList?.per_page" [collectionSize]="userList?.total"
+                  [page]="userList?.current_page" [maxSize]="6" [pageSize]="userList?.per_page" [rotate]="true" [ellipses]="true"
+                  [boundaryLinks]="false" (pageChange)="getUserList($event)"></ngb-pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

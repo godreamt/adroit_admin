@@ -1,0 +1,24 @@
+.theme-light .sidebar-panel.ng-sidebar {
+    background-color: #fff;
+}
+
+.theme-light .sidebar-panel.ng-sidebar .navigation-link {
+    color: rgba(#17469e, 0.6);
+}
+
+.app ng-sidebar > .sidebar-panel.ng-sidebar app-menu .navigation-link:hover, .app ng-sidebar > .sidebar-panel.ng-sidebar app-menu .navigation-link:focus{
+    background-color: #fff;
+}
+
+.theme-light .sidebar-panel.ng-sidebar .navigation-link:hover, .theme-light .sidebar-panel.ng-sidebar .navigation-link:focus{
+    color: #17469e;
+}
+
+.theme-light .sidebar-panel.ng-sidebar .navigation-item.open > a {
+    color: #17469e;
+}
+
+.custom-navbar .navbar-brand {
+    color: #17469e;
+    margin: 0 auto;
+}

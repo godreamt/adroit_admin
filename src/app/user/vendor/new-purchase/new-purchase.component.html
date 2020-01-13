@@ -1,0 +1,89 @@
+<div class="row insieme-forms">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="w-100 d-flex justify-content-between">
+          <span>Add New Purchase</span>
+        </div>
+      </div>
+      <div class="card-body" [formGroup]="form">
+        <h4>{{ userData?.firstName }} {{ userData?.lastName }}</h4>
+        <p class="text-muted mb-0">{{ userData?.area }}, {{ userData?.region }} - {{ userData?.state }},{{ userData?.country }}</p>
+        <p class="text-muted">{{ userData?.address }}</p>
+        <p>
+          Mob : <strong>{{ userData?.mobileNumber }}</strong><br>
+          Email : <strong>{{ userData?.email }}</strong><br>
+        </p>
+        <hr>
+
+        <h5 class="d-flex justify-content-between align-items-center">
+          Products
+          <button type="button" class="btn btn-primary btn-sm" (click)="addProduct()" *ngIf="items.valid">Add Product</button>
+        </h5>
+        <div class="table-responsive" formArrayName="items">
+          <table class="table table-bordered">
+            <thead>
+              <th>Category</th>
+              <th>Sub Category</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let item of items['controls']; let i=index;">
+                <tr [formGroupName]="i">
+                  <td>
+                      <select class="form-control" formControlName="category_id" (change)="getSubCategory($event,i)">
+                        <option value="" disabled>Select Category</option>
+                        <option *ngFor="let item of categoryList;" [value]="item.id">{{ item.title }}</option>
+                      </select>
+                  </td>
+                  <td>
+                    <select class="form-control" formControlName="sub_category_id" (change)="getProducts($event, i)">
+                      <option value="" disabled>Select Sub Category</option>
+                      <option *ngFor="let item of subCategoryList[i];" [value]="item.id">{{ item.title }}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" formControlName="product_id" (change)="getProductDetail($event, i)">
+                      <option value="" disabled>Select Product</option>
+                      <option *ngFor="let item of productList[i];" [value]="item.id">{{ item.title }}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" placeholder="Quantity" class="form-control" formControlName="quantity" (keyup)="calculateTotalPrice(i)">
+                  </td>
+                  <td>
+                    {{ items['controls'][i].get('price').value }}
+                  </td>
+                  <td>
+                      {{ items['controls'][i].get('total').value }}
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="removeProduct(i)"><i class="fa fa-trash"></i></button>
+                  </td>
+                </tr>
+              </ng-container>
+              <tr *ngIf="items['controls'].length <= 0">
+                <td colspan="7">No Products added</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row" *ngIf="items.controls.length > 0 && items.valid">
+          <div class="col-md-12">
+            <h4> <strong>Total : </strong> {{ totalOrderPrice }} </h4>
+            <textarea rows="2" formControlName="comments" placeholder="Comments" class="form-control"></textarea>
+          </div>
+          <div class="col-md-12 mt-3">
+            <button type="button" class="btn btn-success" (click)="makeOrder()">Confirm Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

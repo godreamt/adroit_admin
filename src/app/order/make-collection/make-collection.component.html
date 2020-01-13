@@ -1,0 +1,55 @@
+<div class="row insieme-forms">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <div class="w-100 d-flex justify-content-between">
+          <span>Make Collection</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" (submit)="makeNewCollection($event)">
+          <div class="form-group">
+            <label for="collectionAmount">Collection amount</label>
+            <input type="text" class="form-control" id="collectionAmount" placeholder="Enter Collection amount"
+              formControlName="collectionAmount">
+            <small class="error"
+              *ngIf="form.controls['collectionAmount'].touched && form.controls['collectionAmount'].errors?.required">Collection amount is
+              required</small>
+          </div>
+          <div class="form-group">
+            <label for="paymentMethod">Payment Method</label>
+            <select formControlName="paymentMethod" class="form-control">
+              <option value="cash">Cash</option>
+              <option value="cheque">Cheque</option>
+              <option value="demandDraft">Demand Draft</option>
+              <option value="neft">Neft</option>
+              <option value="other">Other</option>
+            </select>
+            <small class="error"
+              *ngIf="form.controls['paymentMethod'].touched && form.controls['paymentMethod'].errors?.required">Payment Method is
+              required</small>
+          </div>
+          <div class="form-group" [hidden]="form.get('paymentMethod').value == 'cash'">
+            <label for="relatedInfo">Payment Related Info</label>
+            <textarea formControlName="relatedInfo" id="relatedInfo" rows="4" class="form-control"></textarea>
+            <small class="error"
+              *ngIf="form.controls['relatedInfo'].touched && form.controls['relatedInfo'].errors?.required">Payment Related Info is
+              required</small>
+          </div>
+          <div class="form-group">
+            <label for="comments">Comments</label>
+            <input type="text" class="form-control" id="comments" placeholder="Enter Comments"
+              formControlName="comments">
+            <small class="error"
+              *ngIf="form.controls['comments'].touched && form.controls['comments'].errors?.required">Comments is
+              required</small>
+          </div>
+
+          
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

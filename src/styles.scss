@@ -1,0 +1,121 @@
+@import "./theme";
+/* You can add global styles to this file, and also import other style files */
+$color-primary: #17469e;
+$color-primary-text: #fff;
+$color-primary-dark: #133677;
+$color-primary-light: #2562d6;
+
+$color-secondary: #ed1c24;
+$color-secondary-text: #fff;
+$color-secondary-dark: #c70b12;
+$color-secondary-light: #fb343b;
+
+
+$color-danger: #dc1e25;
+$color-danger-text: #fff;
+$color-danger-dark: #c31c22;
+$color-danger-light: #f33c43;
+
+.avatar-xs {
+    width: 70%;
+    text-align: center;
+    max-width: 300px;
+}
+
+.btn-primary {
+    color: $color-primary-text !important;
+    background-color: $color-primary !important;
+    border-color: $color-primary-light !important;
+
+    &:hover, &:focus, &:active {
+        background-color: $color-primary-dark !important;
+        border-color: $color-primary !important;
+    }
+}
+
+
+.btn-secondary {
+    color: $color-secondary-text !important;
+    background-color: $color-secondary !important;
+    border-color: $color-secondary-light !important;
+
+    &:hover, &:focus, &:active {
+        background-color: $color-secondary-dark !important;
+        border-color: $color-secondary !important;
+    }
+}
+
+
+.btn-danger {
+    color: $color-danger-text !important;
+    background-color: $color-danger !important;
+    border-color: $color-danger-light !important;
+
+    &:hover, &:focus, &:active {
+        background-color: $color-danger-dark !important;
+        border-color: $color-danger !important;
+    }
+}
+
+.btn {
+    border-radius: 5px;
+    padding: 0.4rem 1rem;
+}
+
+
+.btn-sm {
+    padding: 0.1rem 0.3rem;
+    font-size: 11px;
+
+    line-height: 1.5;
+    border-radius: 5px;
+}
+
+
+.bg-image {
+    background-position: center !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+}
+
+.table-description {
+    max-height: 50px;
+    overflow: hidden;
+
+    & * {
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+}
+
+td {
+    white-space: nowrap;
+    & div.action {
+        display: flex;
+        align-items: center;
+    }
+
+    & span.long_text {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+    }
+}
+
+th {
+    white-space: nowrap;
+}
+
+.img-thumbnail {
+    width: 50px;
+    height: auto;
+    max-height: 50px;
+    border-radius: 3px;
+    box-shadow: 0 5px 5px #ccc;
+    overflow: hidden;
+}
+
+.error, .error span {
+    color: #c31c22;
+}

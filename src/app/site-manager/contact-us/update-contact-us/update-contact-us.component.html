@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-lg-6 col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <ng-container >Update Contact Request</ng-container>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" (submit)="updateContactRequest($event)">
+          <div class="form-group">
+            <label for="fullName">Name</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Enter Title"
+              formControlName="fullName">
+            <small class="error"
+              *ngIf="form.controls['fullName'].touched && form.controls['fullName'].errors?.required">Name is
+              required</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="Enter Email"
+              formControlName="email">
+            <small class="error"
+              *ngIf="form.controls['email'].touched && form.controls['email'].errors?.required">Email is
+              required</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" class="form-control" id="mobileNumber" placeholder="Enter Mobile No."
+              formControlName="mobileNumber">
+            <small class="error"
+              *ngIf="form.controls['mobileNumber'].touched && form.controls['mobileNumber'].errors?.required">Mobile Number is
+              required</small>
+          </div>
+
+          <div class="form-group">
+            <label for="shortDescription">Reason</label>
+            <my-app-editor [customForm]="form" customFormControl="reasonText"></my-app-editor>
+            <small class="error"
+              *ngIf="form.controls['reasonText'].touched && form.controls['reasonText'].errors?.required">Reason is
+              required</small>
+          </div>
+
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" class="form-control" formControlName="status">
+              <option value="" disabled="disabled">Select Status</option>
+              <option value="new">New</option>
+              <option value="processed">Processed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+            <small class="error"
+              *ngIf="form.controls['status'].touched && form.controls['status'].errors?.required">Status is
+              required</small>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

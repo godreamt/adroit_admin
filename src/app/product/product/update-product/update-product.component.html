@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col-lg-6 col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <ng-container >Update Product</ng-container>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" (submit)="updateProduct($event)">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Enter Title"
+              formControlName="title">
+            <small class="error"
+              *ngIf="form.controls['title'].touched && form.controls['title'].errors?.required">Title is
+              required</small>
+          </div>
+
+          <div class="form-group">
+            <label for="title">Category</label>
+            <select  id="" formControlName="category_id" class="form-control" (change)="getSubCategory($event.target.value)">
+              <option value="" disabled>Select category</option>
+              <option *ngFor="let item of mainCategory;" [value]="item.id">{{ item.title }}</option>
+            </select>
+            <small class="error"
+              *ngIf="form.controls['category_id'].touched && form.controls['category_id'].errors?.required">Category is
+              required</small>
+          </div>
+
+          <div class="form-group">
+            <label for="sub_category_id">Sub Category</label>
+            <select  id="sub_category_id" formControlName="sub_category_id" class="form-control">
+              <option value="" disabled>Select category</option>
+              <option *ngFor="let item of subCategoryList;" [value]="item.id">{{ item.title }}</option>
+            </select>
+            <small class="error"
+              *ngIf="form.controls['sub_category_id'].touched && form.controls['sub_category_id'].errors?.required">Sub Category is
+              required</small>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="regularPrice">Regular Price</label>
+                <input type="text" name="regularPrice" id="regularPrice" class="form-control" formControlName="regularPrice">
+                <small class="error"
+                  *ngIf="form.controls['regularPrice'].touched && form.controls['regularPrice'].errors?.required">Regular price is
+                  required</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="offerPrice">Offer Price</label>
+                <input type="text" name="offerPrice" id="offerPrice" class="form-control" formControlName="offerPrice">
+                <small class="error"
+                  *ngIf="form.controls['offerPrice'].touched && form.controls['offerPrice'].errors?.required">Offer price is
+                  required</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="salesPoints">Sales Points</label>
+            <input type="text" name="salesPoints" id="salesPoints" class="form-control" formControlName="salesPoints">
+            <small class="error"
+              *ngIf="form.controls['salesPoints'].touched && form.controls['salesPoints'].errors?.required">Points is
+              required</small>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="bestSeller">Best Seller</label>
+                <select id="" class="form-control" formControlName="bestSeller">
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+                <small class="error"
+                  *ngIf="form.controls['bestSeller'].touched && form.controls['bestSeller'].errors?.required">Please select a option</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="removeFromList">Remove From Site</label>
+                <select id="" class="form-control" formControlName="removeFromList">
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+                <small class="error"
+                  *ngIf="form.controls['removeFromList'].touched && form.controls['removeFromList'].errors?.required">Please select a option</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="shortDescription">Short Description</label>
+            <my-app-editor [customForm]="form" customFormControl="shortDescription"></my-app-editor>
+          </div>
+
+          <div class="form-group">
+            <label for="featureInfo">Feature Info</label>
+            <my-app-editor [customForm]="form" customFormControl="featureInfo"></my-app-editor>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <my-app-editor [customForm]="form" customFormControl="description"></my-app-editor>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Featured Image</label>
+            <my-image-box [customForm]="form" customFormControl="featuredImage" [currentImage]="currentImage"></my-image-box>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-lg-6 col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <ng-container >Update Team Member</ng-container>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form" (submit)="updateMember($event)">
+            <div class="form-group">
+              <label for="fullName">Name</label>
+              <input type="text" class="form-control" id="fullName" placeholder="Enter Title"
+                formControlName="fullName">
+              <small class="error"
+                *ngIf="form.controls['fullName'].touched && form.controls['fullName'].errors?.required">Name is
+                required</small>
+            </div>
+            
+            <div class="form-group">
+              <label for="designation">Designation</label>
+              <input type="text" class="form-control" id="designation" placeholder="Enter Designation"
+                formControlName="designation">
+              <small class="error"
+                *ngIf="form.controls['designation'].touched && form.controls['designation'].errors?.required">Designation is
+                required</small>
+            </div>
+            
+            <div class="form-group">
+              <label for="experience">Experience Info</label>
+              <input type="text" class="form-control" id="experience" placeholder="Enter Exp. Info."
+                formControlName="experience">
+              <small class="error"
+                *ngIf="form.controls['experience'].touched && form.controls['experience'].errors?.required">Experience Info is
+                required</small>
+            </div>
+            
+            <div class="form-group">
+              <label for="priority">Priority</label>
+              <input type="text" class="form-control" id="priority" placeholder="Enter Priority in number."
+                formControlName="priority">
+              <small class="error"
+                *ngIf="form.controls['priority'].touched && form.controls['priority'].errors?.required">Priority is
+                required</small>
+            </div>
+  
+            <div class="form-group">
+              <label for="shortDescription">Short Description</label>
+              <my-app-editor [customForm]="form" customFormControl="shortDescription"></my-app-editor>
+              <small class="error"
+                *ngIf="form.controls['shortDescription'].touched && form.controls['shortDescription'].errors?.required">Info is
+                required</small>
+            </div>
+  
+            <div class="form-group">
+              <label for="profileImage">Featured Image</label>
+              <my-image-box [customForm]="form" customFormControl="profileImage" [currentImage]="currentImage"></my-image-box>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
