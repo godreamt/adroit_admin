@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  url : "http://192.168.43.246:8000/api/",
-  imageUrl: 'http://192.168.43.246:8000'
+  url : "http://adroitconchem.com/api/",
+  imageUrl: 'http://adroitconchem.com'
 };

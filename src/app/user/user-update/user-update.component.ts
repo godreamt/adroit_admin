@@ -116,6 +116,10 @@ export class UserUpdateComponent implements OnInit {
     
     if(this.form.invalid)return;
     this._serv.url = "user";
+    let data = this.form.value;
+    if(data.dateOfBirth instanceof Object){
+      data.dateOfBirth = data.dateOfBirth.year + "-" + data.dateOfBirth.month + "-" + data.dateOfBirth.day
+    }
     this._serv.create(this.form.value).subscribe(response => {
       this.alert.success(response[0]);
       this.router.navigate(['/user-manager/list']);
